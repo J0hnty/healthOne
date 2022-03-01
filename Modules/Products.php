@@ -39,22 +39,26 @@ function getProduct(int $productId) {
 
 function deleteProduct(int $productId) {
     global $pdo;
-    //dit moet uiteindelijk nog weg...
-    $a = false;
-    if ($a == true) {
-        $query=$pdo->prepare("DELETE FROM products WHERE id = :id");
-        $query->bindParam("id", $productId);
-        $query->execute();
-        echo 'verwijderd';
-    } else {
-        echo 'zou normaal verwijderd zijn lol';
-    }
+
+    $query=$pdo->prepare("DELETE FROM products WHERE id = :id");
+    $query->bindParam("id", $productId);
+    $query->execute();
+
 
 }
 
-function createProduct() {
+function createProduct($name, $serialNumber, $description, $color, $pictureName, $pictureTempName, $brand, $categoryNumber) {
     global $pdo;
+    $pictureName = '/img/'.$pictureName;
     $query=$pdo->prepare("INSERT INTO products (name, serialnumber, description, picture, color, brand, category_id) 
                                 VALUES (:name, :serialnumber, :description, :picture, :color, :brand, :category_id)");
-//moet nog binden
+    $query->bindParam("name", $name);
+    $query->bindParam("serialnumber", $serialNumber);
+    $query->bindParam("description", $description);
+    $query->bindParam("picture", $pictureName);
+    $query->bindParam("color", $color);
+    $query->bindParam("brand", $brand);
+    $query->bindParam("category_id", $categoryNumber);
+    move_uploaded_file($pictureTempName, '../public'.$pictureName);
+    $query->execute();
 }

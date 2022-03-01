@@ -12,33 +12,28 @@ $title = "HealthOne";
 $titleSuffix = "";
 
 session_start();
-//var_dump($_SESSION);
 
 
 switch ($params[1]) {
+
     case 'admin':
         if ($_SESSION['user']->role == 'admin') {
-            $titleSuffix=' | Admin';
+            $titleSuffix = ' | Admin';
             var_dump($_POST);
             if (isset($_POST['submit'])) {
-                //je kan producten verwijderen!!! :D:
-                //ben nu bezig met producten te maken. lukt niet 14-1-2022
                 switch ($_POST['operation']) {
                     case 'edit':
-                        $titleSuffix=' | Editproduct';
-                        var_dump($_POST['operation']);
-                        include_once '../Templates/editProduct.php';
+                        $titleSuffix = ' | Editproduct';
+                        header('Location: /editInfo');
+                        //include_once '../Templates/editProduct.php';
                         break;
                     case 'delete':
-                        $titleSuffix=' | Deleteproduct';
-                        var_dump($_POST['operation']);
-                        include_once '../Templates/deleteProduct.php';
+                        $delete = deleteProduct($_POST['submit']);
+                        include_once '../Templates/admin.php';
                         break;
                     default:
-                        if($_POST['submit'] == 'add') {
-                            //het leid hier naar toe maar doet niet
-                            var_dump($_POST['submit']);
-                            $titleSuffix=' | newProduct';
+                        if ($_POST['submit'] == 'add') {
+                            $titleSuffix = ' | newProduct';
                             include_once '../Templates/addProduct.php';
                             header("Location: addProduct");
                         } else {
@@ -49,7 +44,7 @@ switch ($params[1]) {
             } else {
                 include_once '../Templates/admin.php';
             }
-        }else {
+        } else {
             echo 'je bent een member';
         }
 
@@ -57,9 +52,24 @@ switch ($params[1]) {
         break;
 
     case 'addProduct':
-        if (isset($_POST['addProduct'])) { 
+        if (isset($_POST['addProduct'])) {
+            $name = $_POST['name'];
+            $serialNumber = $_POST['serialnumber'];
+            $description = $_POST['description'];
+            $color = $_POST['color'];
+            $brand = $_POST['brand'];
+            $categoryNumber = $_POST['category'];
+            $picture = $_FILES['picture'];
+            $pictureName = $_FILES['picture']['name'];
+            $pictureTempName = $_FILES['picture']['tmp_name'];
             var_dump($_POST);
+            $newProduct = createProduct($name, $serialNumber, $description, $color, $pictureName, $pictureTempName, $brand, $categoryNumber);
+            //dit upload de file naar mijn project img folder
+            //move_uploaded_file($pictureTempName, 'img/'.$pictureName);
+            echo $pictureName;
+            echo $pictureTempName;
         }
+            include_once '../Templates/addProduct.php';
         break;
 
     case 'login':
@@ -85,7 +95,6 @@ switch ($params[1]) {
                     if ($_SESSION['user']->role == 'admin') {
                         header('Location: /admin');
                     }else {
-                        echo 'jappie daapie';
                         header('Location: /memberProfile');
                     }
                     break;
@@ -95,7 +104,7 @@ switch ($params[1]) {
         }
 
         if (isset($_POST['verzend'])) {
-            $newUser = makeUser();
+            $newUser = makeUser($_POST['username'], $_POST['firstname'], $_POST['lastname'], $_POST['mail'], $_POST['pass']);
 
         }
 
@@ -103,8 +112,25 @@ switch ($params[1]) {
 
     case 'memberProfile':
         $titleSuffix=' | Profile';
-        include_once "../Templates/memberProfile.php";
+        if(isset($_POST['editInfo'])) {
+            include_once '../Templates/editInfo.php';
+        }else {
+            include_once '../Templates/memberProfile.php';
+        }
+        if(isset($_POST['updateInfo'])) {
+            if(!empty($_POST['old-password1']) && !empty($_POST['old-password2']) && !empty($_POST['new-password']) && $_POST['old-password1'] == $_POST['old-password2']) {
+                //var_dump($_POST);
+                if ($_SESSION['user']->password == $_POST['old-password1']){
+                    changePass($_POST['new-password'], $_SESSION['user']->id);
+                    $message = 'uw wachtwoord is geupdated';
+                }else {
+                    $message = 'oops er is iets fout gegaan';
+                }
+            }
+        }
         break;
+
+
 
     case 'logout':
         $titleSuffix=' | Logout';
@@ -159,18 +185,22 @@ switch ($params[1]) {
     case 'review':
         $id=$_GET['id'];
         $product=getProduct($id);
-        $name=getCategoryName($id);
         $reviews=getReviews();
 
         if (isset($_POST['verzenden'])) {
            // var_dump($_POST);
             saveReview($_POST['userName'], $_POST['title'], $_POST['review']);
-            include_once "../Templates/product.php";
+            header("Location: /product/$product->id");
         } else {
             $titleSuffix = ' | Review';
             include_once "../Templates/review.php";
         }
 
+        break;
+
+    case 'home':
+        $titleSuffix = ' | Home';
+        include_once "../Templates/home.php";
         break;
 
     default:

@@ -20,14 +20,14 @@
             <?php global $categories ?>
             <?php foreach ($categories as $category): ?>
                 <div class="col-sm-4 col-md-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <a href="/category/<?= $category->id ?>">
+                    <a href="/category/<?= $category->id ?>">
+                        <div class="card">
+                            <div class="card-body text-center">
                                 <img class="product-img img-responsive center-block" alt="Product image" src="<?= $category->picture ?>">
-                            </a>
-                            <div class="card-title mb-3"><?= $category->name ?></div>
+                                <div class="card-title mb-3"><?= $category->name ?></div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             <?php endforeach; ?>
         </div>

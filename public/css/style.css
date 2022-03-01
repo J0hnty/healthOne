@@ -39,3 +39,23 @@ body {
 .display-flex {
     display: flex;
 }
+
+.label {
+    width: 8rem;
+    padding: 1rem;
+}
+
+.display {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+}
+
+.mooi {
+    justify-content: right;
+}
+
+td,th {
+    border: 1px solid;
+    min-width: 10rem;
+}

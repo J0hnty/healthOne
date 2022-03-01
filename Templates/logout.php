@@ -11,6 +11,7 @@ if (!empty($_SESSION)) {
 if (!empty(isset($_POST['logout']))) {
     echo 'je bent uitgelogt';
     session_destroy();
+    header('Location: /home');
 }else if (!empty(isset($_POST['stay']))){
     header('Location: /home');
 }

@@ -8,6 +8,9 @@ include_once('defaults/head.php');
     include_once('defaults/menu.php');
     include_once('defaults/pictures.php');
     global $product,$name;
+    if (isset($_POST['verzenden'])) {
+
+    }
     ?>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -26,26 +29,20 @@ include_once('defaults/head.php');
         <div class="col-sm-6">
             <img class="product-img img-responsive center-block  img-size" src="<?= $product->picture ?>">
         </div>
-
-
-
-
     </div>
     <!--inputs voor de review.-->
     <form method="post">
-        <label for="userName">Name:</label>
-        <input type="text" id="userName" name="userName"><br><br>
-        <label for="subject">Onderwerp:</label>
-        <input type="text" id="title" name="title"><br><br>
-        <label for="textarea">Review</label>
-        <textarea id="textarea" name="review" rows="4" cols="50"></textarea><br><br>
-        <input type="submit" name="verzenden" value="Submit">
+        <input type="hidden" id="userName" name="userName" value="<?= $_SESSION['user']->username; ?>"><br>
+        <label class="label" for="subject">Onderwerp:</label>
+        <input type="text" id="title" name="title"><br>
+        <label class="label" for="textarea">Review</label>
+        <textarea id="textarea" name="review" rows="4" cols="50"></textarea><br>
+        <label class="label"></label>
+        <input style="width: 8rem" type="submit" name="verzenden" value="Submit">
     </form>
     <hr>
     <?php
-    include_once('defaults/footer.php');
-
+        include_once('defaults/footer.php');
     ?>
 </div>
-
 </body>

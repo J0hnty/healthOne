@@ -1,10 +1,4 @@
 <?php
-function getUser($id) {
-    global $pdo;
-    //dit moet ik nog binden.
-    $query = $pdo->prepare('SELECT * FROM user WHERE id=:id');
-
-}
 
 function checkLogin($mail, $pass) {
     global $pdo;
@@ -31,19 +25,31 @@ function checkLogin($mail, $pass) {
 
 }
 
-function makeUser() {
+function makeUser($username, $firstname, $lastname, $mail, $pass) {
     global $pdo;
+    $role = 'member';
     var_dump($_POST);
-    $query = $pdo->prepare('INSERT INTO user(username, firstname, lastname, birthday, email)
-                                    VALUES ( :username, :firstname, :lastname, :brithday, :mail,)');
+    $query = $pdo->prepare('INSERT INTO user(username, firstname, lastname, email, password, role)
+                                    VALUES ( :username, :firstname, :lastname, :mail, :pass, :role)');
     $query->bindParam(':username', $username, PDO::PARAM_STR);
     $query->bindParam(':firstname', $firstname, PDO::PARAM_STR);
     $query->bindParam(':lastname', $lastname, PDO::PARAM_STR);
-    $query->bindParam(':birthday', $birthday, PDO::PARAM_INT);
     $query->bindParam(':mail', $mail, PDO::PARAM_STR);
+    $query->bindParam(':pass', $pass, PDO::PARAM_STR);
+    $query->bindParam(':role', $role, PDO::PARAM_STR);
 
     $query->execute();
 
+
+
+}
+
+function changePass($pass, $id) {
+    global $pdo;
+    $query = $pdo->prepare('UPDATE user SET password=:pass WHERE id=:id');
+    $query->bindParam(':pass', $pass, PDO::PARAM_STR);
+    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->execute();
 
 
 }

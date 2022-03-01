@@ -13,6 +13,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/categories">sportapparaat</a>
                 </li>
+                <?php if (isset($_SESSION['user']->role) && $_SESSION['user']->role == 'admin'):?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">beheer</a>
+                    </li>
+                <?php endif?>
+                <?php if (isset($_SESSION['user']->role) && $_SESSION['user']->role == 'member'):?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/memberProfile">profile</a>
+                    </li>
+                <?php endif?>
                 <li class="nav-item">
                     <a class="nav-link" href="/contact">contact</a>
                 </li>
@@ -22,6 +32,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/login">inloggen</a>
                 </li>
+
                 <?php else: ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">uitloggen</a>
