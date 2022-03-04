@@ -1,13 +1,13 @@
 <html>
 <?php
-include_once('adminDefaults/head.php');
+include_once('defaults/head.php');
 ?>
 <body>
 <div class="container">
     <?php
-    include_once ('adminDefaults/header.php');
-    include_once ('adminDefaults/menu.php');
-    include_once ('adminDefaults/pictures.php');
+    include_once ('defaults/header.php');
+    include_once ('defaults/menu.php');
+    include_once ('defaults/pictures.php');
 //    if (!empty($_POST['mail'])) {
 //        $_POST = [];
 //    }
@@ -44,7 +44,7 @@ include_once('adminDefaults/head.php');
             </div>
     </div>
     <?php
-    include_once('adminDefaults/footer.php');
+    include_once('defaults/footer.php');
     ?>
 </div>
 </body>

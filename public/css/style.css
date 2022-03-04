@@ -59,3 +59,13 @@ td,th {
     border: 1px solid;
     min-width: 10rem;
 }
+
+.circle {
+    width: 640px;
+    height: 320px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 40%;
+    border-radius: 40%;
+    overflow:hidden;
+    position:relative;
+}
