@@ -42,7 +42,7 @@
                     <div class="card-body mb-3"><?= $review->description ?></div>
                     <div class="card-body mb-3"><?= $review->date ?></div>
                     <?php if (!empty($_SESSION) && $_SESSION['user']->role == 'admin'): ?>
-                        <button class="btn-danger">delete</button>
+<!--                        <button class="btn-danger">delete</button>-->
                     <?php endif; ?>
                 </div>
             </div>

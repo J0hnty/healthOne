@@ -26,10 +26,10 @@
             <th>achternaam</th>
             <td><?= $_SESSION['user']->lastname ?></td>
         </tr>
-        <tr>
-            <th>geboorte dag</th>
-            <td><?= $_SESSION['user']->birthday ?></td>
-        </tr>
+<!--        <tr>-->
+<!--            <th>geboorte dag</th>-->
+<!--            <td>--><?php //echo $_SESSION['user']->birthday ?><!--</td>-->
+<!--        </tr>-->
         <tr>
             <th>e-mail</th>
             <td><?= $_SESSION['user']->email ?></td>

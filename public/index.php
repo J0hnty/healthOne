@@ -19,12 +19,12 @@ switch ($params[1]) {
     case 'admin':
         if ($_SESSION['user']->role == 'admin') {
             $titleSuffix = ' | Admin';
-            var_dump($_POST);
+            //var_dump($_POST);
             if (isset($_POST['submit'])) {
                 switch ($_POST['operation']) {
                     case 'edit':
-                        $titleSuffix = ' | Editproduct';
-                        header('Location: /editInfo');
+                        //$titleSuffix = ' | Editproduct';
+                        //header('Location: /editProduct');
                         //include_once '../Templates/editProduct.php';
                         break;
                     case 'delete':
@@ -62,7 +62,7 @@ switch ($params[1]) {
             $picture = $_FILES['picture'];
             $pictureName = $_FILES['picture']['name'];
             $pictureTempName = $_FILES['picture']['tmp_name'];
-            var_dump($_POST);
+            //var_dump($_POST);
             $newProduct = createProduct($name, $serialNumber, $description, $color, $pictureName, $pictureTempName, $brand, $categoryNumber);
             //dit upload de file naar mijn project img folder
             //move_uploaded_file($pictureTempName, 'img/'.$pictureName);
@@ -82,20 +82,20 @@ switch ($params[1]) {
             switch ($result) {
                 case 'EMAIL_WRONG':
                     $message = 'Je jebt geen email ingevult probeer het opnieuw.';
-                    echo $message;
+                    //echo $message;
                     include_once '../Templates/login.php';
                     break;
                 case 'FAILT!':
                     $message = 'je hebt foute informatie ingevult.';
-                    echo $message;
+                    //echo $message;
                     include_once '../Templates/login.php';
                     break;
                 case 'GEACHCEPTEERD':
                     $message = 'je hebt je informatie goed ingevult.';
                     if ($_SESSION['user']->role == 'admin') {
-                        header('Location: /admin');
+                        header('Location: /home');
                     }else {
-                        header('Location: /memberProfile');
+                        header('Location: /home');
                     }
                     break;
             }
@@ -104,6 +104,7 @@ switch ($params[1]) {
         }
 
         if (isset($_POST['verzend'])) {
+
             $newUser = makeUser($_POST['username'], $_POST['firstname'], $_POST['lastname'], $_POST['mail'], $_POST['pass']);
 
         }
@@ -129,8 +130,6 @@ switch ($params[1]) {
             }
         }
         break;
-
-
 
     case 'logout':
         $titleSuffix=' | Logout';

@@ -3,7 +3,7 @@
 <?php
 include_once('defaults/head.php');
 if (!empty($_SESSION)) {
-    var_dump($_SESSION);
+    //var_dump($_SESSION);
 //    $userName = $_SESSION['username'];
 //    echo "doei doei $userName";
 //

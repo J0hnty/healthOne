@@ -18,7 +18,7 @@
                         <a class="nav-link" href="/admin">beheer</a>
                     </li>
                 <?php endif?>
-                <?php if (isset($_SESSION['user']->role) && $_SESSION['user']->role == 'member'):?>
+                <?php if (isset($_SESSION['user']->role)):?>
                     <li class="nav-item">
                         <a class="nav-link" href="/memberProfile">profile</a>
                     </li>

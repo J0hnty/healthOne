@@ -25,10 +25,11 @@ function checkLogin($mail, $pass) {
 
 }
 
-function makeUser($username, $firstname, $lastname, $mail, $pass) {
+function makeUser($username, $firstname, $lastname, $mail, $pass,) {
+
     global $pdo;
     $role = 'member';
-    var_dump($_POST);
+    //var_dump($_POST);
     $query = $pdo->prepare('INSERT INTO user(username, firstname, lastname, email, password, role)
                                     VALUES ( :username, :firstname, :lastname, :mail, :pass, :role)');
     $query->bindParam(':username', $username, PDO::PARAM_STR);
@@ -38,9 +39,10 @@ function makeUser($username, $firstname, $lastname, $mail, $pass) {
     $query->bindParam(':pass', $pass, PDO::PARAM_STR);
     $query->bindParam(':role', $role, PDO::PARAM_STR);
 
+
     $query->execute();
 
-
+    return $message = 'U kunt nu inloggen';
 
 }
 

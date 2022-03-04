@@ -8,6 +8,9 @@
     include_once ('defaults/header.php');
     include_once ('defaults/menu.php');
     include_once ('defaults/pictures.php');
+    if (isset($_POST['verzend'])) {
+        $message = 'U kunt nu inloggen';
+    }
     global $message;
     ?>
         <div class="row">
